@@ -1,0 +1,54 @@
+Problem 6: 
+SQL Sales Analysis – RetailX Context: RetailX stores regional sales data in a relational database. 
+The business intelligence team wants to aggregate total sales per region, filter out low-performing areas, and rank regions based on performance. 
+Table: sales(region, amount) 
+Tasks: 
+1. Calculate total sales per region. 
+2. Filter regions where total sales > ₹10,000.
+3. Sort by total descending. 
+
+SQL> CREATE TABLE SALES(
+  2      REGION VARCHAR(20),
+  3      AMOUNT INT
+  4  );
+
+Table created.
+
+SQL> INSERT INTO SALES VALUES ('EAST',5000);
+
+1 row created.
+
+SQL> INSERT INTO SALES VALUES ('EAST',6000);
+
+1 row created.
+
+SQL> INSERT INTO SALES VALUES ('WEST',4000);
+
+1 row created.
+
+SQL> INSERT INTO SALES VALUES ('WEST',2000);
+
+1 row created.
+
+SQL> SELECT * FROM SALES;
+
+REGION                   AMOUNT
+-------------------- ----------
+EAST                       5000
+EAST                       6000
+WEST                       4000
+WEST                       2000
+
+SQL> SELECT REGION, SUM(AMOUNT) AS TOTAL_SALES
+  2  FROM SALES
+  3  GROUP BY REGION
+  4  HAVING SUM(AMOUNT) > 10000
+  5  ORDER BY TOTAL_SALES DESC;
+
+REGION               TOTAL_SALES
+-------------------- -----------
+EAST                       11000
+
+
+
+
